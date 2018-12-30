@@ -1,0 +1,54 @@
+version: '2'
+services:
+    db:
+        image: mysql:5.7
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: zdrojowa
+            MYSQL_USER: zdrojowa
+            MYSQL_PASSWORD: zdrojowa
+        volumes:
+            - ./database:/var/lib/mysql
+        networks:
+            - dbnet
+        ports:
+        - "3306:3306"
+    php:
+        build: ./php-cli
+        environment:
+            HOST_DIR: ${PWD}/../
+        ports:
+            - "8000:8000"
+        volumes:
+            - ..:/var/www/symfony:cached
+        networks:
+            - dbnet
+        depends_on:
+          - db
+    php_console:
+        build: ./php-cli
+        stdin_open: true
+        tty: true
+        command: /bin/bash
+        volumes:
+            - ..:/var/www/symfony
+        environment:
+            HOST_DIR: ${PWD}/../
+        networks:
+            - dbnet
+        depends_on:
+          - db
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        environment:
+            PMA_HOST: db
+            PMA_USER: root
+            PMA_PASSWORD: root
+        ports:
+            - "8080:80"
+        networks:
+            - dbnet
+        depends_on:
+            - db
+networks:
+  dbnet:
