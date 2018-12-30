@@ -34,5 +34,12 @@ services:
     #     arguments:
     #         $someArgument: 'some_value'
 
+
+
     AppBundle\Weather\OWMWeatherProvider:
         arguments: ['%owm_api_key%']
+
+    AppBundle\Weather\CachedWeatherProvider:
+        arguments: ['@AppBundle\Weather\OWMWeatherProvider','@doctrine.orm.entity_manager']
+
+    AppBundle\Weather\WeatherProviderInterface: '@AppBundle\Weather\CachedWeatherProvider'
