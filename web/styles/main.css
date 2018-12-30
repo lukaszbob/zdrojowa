@@ -1,0 +1,27 @@
+body {
+  background: #F5F5F5;
+  font: 18px/1.5 sans-serif; }
+  @media (max-width: 767px) {
+    body {
+      font-size: 14px; } }
+  @media (max-width: 360px) {
+    body {
+      font-size: 10px; } }
+
+#wrapper {
+  background: #FFF;
+  margin: 1em auto;
+  max-width: 800px;
+  width: 95%; }
+
+#container {
+  padding: 2em; }
+
+.weather-block .weather-info {
+  font-size: 2em; }
+  .weather-block .weather-info .value {
+    font-size: 2em; }
+.weather-block .weather-update {
+  font-size: 0.5em; }
+
+/*# sourceMappingURL=main.css.map */

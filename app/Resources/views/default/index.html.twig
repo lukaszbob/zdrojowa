@@ -1,45 +1,21 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}
+    Pogoda w Warszawie
+{% endblock %}
 {% block body %}
     <div id="wrapper">
         <div id="container">
-
+            <div class="weather-block">
             {% if weather.correct %}
-                Aktualna temperatura w Warszawie to: {{ weather.temperature }} st. C.<br>
-                Data aktualizacji: {{ weather.updateTime | date("d-m-Y H:i:s","Europe/Warsaw") }}
+                <div class="weather-info"><span class="description">Aktualna temperatura w Warszawie to:</span> <div class="value">{{ weather.temperature | number_format(2, ',', ' ') }} st. C.</div></div>
+                <div class="weather-update"><span class="description">Data aktualizacji:</span> <span class="value">{{ weather.updateTime | date("d-m-Y H:i:s","Europe/Warsaw") }}</span></div>
                 {% else %}
-                Nie udało się pobrać aktualnej temperatury!
+                    <div class="weather-error">Nie udało się pobrać aktualnej temperatury!</div>
             {% endif %}
+                </div>
 
         </div>
     </div>
 {% endblock %}
 
-{% block stylesheets %}
-<style>
-    body { background: #F5F5F5; font: 18px/1.5 sans-serif; }
-    h1, h2 { line-height: 1.2; margin: 0 0 .5em; }
-    h1 { font-size: 36px; }
-    h2 { font-size: 21px; margin-bottom: 1em; }
-    p { margin: 0 0 1em 0; }
-    a { color: #0000F0; }
-    a:hover { text-decoration: none; }
-    code { background: #F5F5F5; max-width: 100px; padding: 2px 6px; word-wrap: break-word; }
-    #wrapper { background: #FFF; margin: 1em auto; max-width: 800px; width: 95%; }
-    #container { padding: 2em; }
-    #welcome, #status { margin-bottom: 2em; }
-    #welcome h1 span { display: block; font-size: 75%; }
-    #icon-status, #icon-book { float: left; height: 64px; margin-right: 1em; margin-top: -4px; width: 64px; }
-    #icon-book { display: none; }
-
-    @media (min-width: 768px) {
-        #wrapper { width: 80%; margin: 2em auto; }
-        #icon-book { display: inline-block; }
-        #status a, #next a { display: block; }
-
-        @-webkit-keyframes fade-in { 0% { opacity: 0; } 100% { opacity: 1; } }
-        @keyframes fade-in { 0% { opacity: 0; } 100% { opacity: 1; } }
-        .sf-toolbar { opacity: 0; -webkit-animation: fade-in 1s .2s forwards; animation: fade-in 1s .2s forwards;}
-    }
-</style>
-{% endblock %}

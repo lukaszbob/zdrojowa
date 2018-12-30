@@ -34,15 +34,15 @@ class WeatherSpecification
         return $this->locationId;
     }
 
-    public function needRefresh(){
-        return false;
+    public function needRefresh()
+    {
+        return ($this->updateTime + 600 < time());
     }
 
-    public function isCorrect(){
+    public function isCorrect()
+    {
         return (!is_null($this->temperature));
     }
-
-
 
 
 }
